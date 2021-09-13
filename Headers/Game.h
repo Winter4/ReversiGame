@@ -4,6 +4,7 @@
 
 #include "ResourceHolder.hpp"
 #include "Resources-enums.h"
+#include "Field.h"
 
 class Game {
 private:
@@ -12,6 +13,8 @@ private:
 	ResourceHolder<sf::Texture, Textures::ID> texturesHolder;
 
 	sf::Sprite background;
+	Field* field;
+
 
 public:
 	Game();
@@ -31,6 +34,6 @@ public:
 	void render();
 
 	// 
-	void reset();
+	//void reset();
 };
 

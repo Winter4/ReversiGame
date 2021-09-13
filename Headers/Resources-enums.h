@@ -4,9 +4,6 @@
 namespace Textures {
 	enum ID {
 		Background,
-		Field,
-		Tales,
-		TalesBase,
-		Arrow
+		Field
 	};
 }
