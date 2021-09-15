@@ -36,6 +36,9 @@
     <ClCompile Include="Sources\Field.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\Cell.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Game.h">
@@ -57,6 +60,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Field.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Cell.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

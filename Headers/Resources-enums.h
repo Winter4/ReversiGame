@@ -4,6 +4,14 @@
 namespace Textures {
 	enum ID {
 		Background,
-		Field
+		Field,
+		Chips,
+		CellHover
 	};
 }
+
+	enum Player {
+		PLAYER_NONE,
+		PLAYER_BLACK,
+		PLAYER_WHITE
+	};
