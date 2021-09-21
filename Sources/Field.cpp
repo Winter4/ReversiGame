@@ -8,16 +8,19 @@ Field::Field(sf::RenderWindow* window, sf::Vector2f position, const sf::Texture&
 	for (int i = 0; i < FIELD_SIZE; i++)
 		cells[i] = new Cell*[FIELD_SIZE];
 
-	cellHover.setTexture(cellHoverTexture);
-
 	for (int i = 0; i < FIELD_SIZE; i++)
 		for (int j = 0; j < FIELD_SIZE; j++) {
+			// 25 - cells grid padding
+			// 85 - one sprite width=height
+			// 85 / 2 - to set the origin in the cell center
 			cells[i][j] = new Cell(window, sf::Vector2f(25 + 85 * j + 85 / 2, 
 				25 + 85 * i + 85 / 2) + sprite.getPosition(), chipsTexture);
+
+			// debug chips displaying
 			cells[i][j]->set(Player::PLAYER_BLACK);
-			
 		}
 	
+	cellHover.setTexture(cellHoverTexture);
 }
 
 void Field::draw() {

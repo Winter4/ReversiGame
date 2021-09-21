@@ -35,6 +35,9 @@ void Cell::set(Player player)
 		throw std::exception("Chip should have the master (PLAYER_NONE in set() ).");
 		break;
 
+	// the texture is 90x45, so sprites are two squares
+	// its squares left upper corners are in the following coords 
+		// relatively to the texture
 	case Player::PLAYER_BLACK:
 		sprite.setTextureRect(sf::IntRect(0, 0, 45, 45));
 		state = true;

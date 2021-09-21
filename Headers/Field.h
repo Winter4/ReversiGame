@@ -16,5 +16,6 @@ public:
 
 	void draw();
 	sf::FloatRect getBounds();
+	// diplay chip phantom if necessary
 	void processCursor(sf::Vector2i cursorPosition);
 };

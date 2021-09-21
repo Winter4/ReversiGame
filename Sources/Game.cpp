@@ -1,7 +1,6 @@
 #include "../Headers/Game.h"
 
 void Game::loadAssets() {
-
 	texturesHolder.load(Textures::Background, "assets/textures/background.png");
 	texturesHolder.load(Textures::Field, "assets/textures/field.png");
 	texturesHolder.load(Textures::Chips, "assets/textures/chips.png");
@@ -38,8 +37,10 @@ void Game::processEvents() {
 		break;
 
 	case sf::Event::MouseMoved:
+		// displaying chip phantom if necessary
 		field->processCursor(sf::Mouse::getPosition(window));
 			
+		// debug displaying cursor position
 		system("cls");
 		std::cout << "Mouse: " << sf::Mouse::getPosition(window).x << "  " 
 			<< sf::Mouse::getPosition(window).y << std::endl;
