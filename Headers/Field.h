@@ -15,4 +15,6 @@ public:
 		const sf::Texture& chipsTexture, const sf::Texture& cellHoverTexture);
 
 	void draw();
+	sf::FloatRect getBounds();
+	void processCursor(sf::Vector2i cursorPosition);
 };

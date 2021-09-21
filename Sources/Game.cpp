@@ -13,7 +13,8 @@ Game::Game() : window(sf::VideoMode(1400, 900), "Reversi") {
 	loadAssets();
 	
 	background.setTexture(texturesHolder.get(Textures::Background));
-	field = new Field(&window, { 520, 80 }, texturesHolder.get(Textures::Field), texturesHolder.get(Textures::Chips));
+	field = new Field(&window, { 520, 80 }, texturesHolder.get(Textures::Field), 
+		texturesHolder.get(Textures::Chips), texturesHolder.get(Textures::CellHover));
 }
 
 void Game::run() {
@@ -36,7 +37,13 @@ void Game::processEvents() {
 		window.close();
 		break;
 
-		
+	case sf::Event::MouseMoved:
+		field->processCursor(sf::Mouse::getPosition(window));
+			
+		system("cls");
+		std::cout << "Mouse: " << sf::Mouse::getPosition(window).x << "  " 
+			<< sf::Mouse::getPosition(window).y << std::endl;
+		break;
 	}
 }
 
