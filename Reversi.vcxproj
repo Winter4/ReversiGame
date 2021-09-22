@@ -151,6 +151,7 @@
   <ItemGroup>
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Sources\Cell.cpp" />
+    <ClCompile Include="Sources\ChipPhantom.cpp" />
     <ClCompile Include="Sources\Entity.cpp" />
     <ClCompile Include="Sources\Field.cpp" />
     <ClCompile Include="Sources\FontedEntity.cpp" />
@@ -159,6 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Cell.h" />
+    <ClInclude Include="Headers\ChipPhantom.h" />
     <ClInclude Include="Headers\Entity.h" />
     <ClInclude Include="Headers\Field.h" />
     <ClInclude Include="Headers\FontedEntity.h" />

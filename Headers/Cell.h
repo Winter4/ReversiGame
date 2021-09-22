@@ -4,12 +4,17 @@
 
 class Cell : TexturedEntity {
 private:
-	bool state;
+	bool filled;
 	Player player;
 
 public:
 	Cell(sf::RenderWindow* window, sf::Vector2f position, const sf::Texture& texture);
 
 	void draw();
-	void set(Player player);
+	void setChip(Player player);
+	bool contains(sf::Vector2f point);
+	sf::Vector2f getPosition();
+	bool hovered(sf::Vector2f point);
+
+	bool getFilling();
 };
