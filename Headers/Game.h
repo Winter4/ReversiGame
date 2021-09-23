@@ -15,7 +15,6 @@ private:
 	sf::Sprite background;
 	Field* field;
 
-
 public:
 	Game();
 

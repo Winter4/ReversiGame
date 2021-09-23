@@ -40,16 +40,14 @@ void Cell::setChip(Player player)
 		// relatively to the texture
 	case Player::PLAYER_BLACK:
 		sprite.setTextureRect(sf::IntRect(0, 0, 85, 85));
-		filled = true;
 		break;
 
 	case Player::PLAYER_WHITE:
 		sprite.setTextureRect(sf::IntRect(85, 0, 85, 85));
-		filled = true;
 		break;
 	}
-	
 
+	filled = true;
 }
 
 bool Cell::contains(sf::Vector2f point) { return sprite.getGlobalBounds().contains(point); }

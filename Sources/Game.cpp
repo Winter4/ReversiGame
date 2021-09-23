@@ -14,6 +14,8 @@ Game::Game() : window(sf::VideoMode(1400, 900), "Reversi") {
 	background.setTexture(texturesHolder.get(Textures::Background));
 	field = new Field(&window, { 520, 80 }, texturesHolder.get(Textures::Field), 
 		texturesHolder.get(Textures::Chips), texturesHolder.get(Textures::CellHover));
+
+	
 }
 
 void Game::run() {

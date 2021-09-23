@@ -64,7 +64,8 @@ void Field::processCursor(sf::Vector2i cursorPosition) {
 
 void Field::setChip(Player player) {
 	if (chipPhantom.getState())
-		if (not (cells[chipPhantom.getIndex().y][chipPhantom.getIndex().y]->getFilling())) {
+		if (not (cells[chipPhantom.getIndex().y][chipPhantom.getIndex().x]->getFilling())) {
+
 			cells[chipPhantom.getIndex().y][chipPhantom.getIndex().x]->setChip(player);
 			chipPhantom.setState(false);
 		}
