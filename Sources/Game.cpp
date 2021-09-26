@@ -11,11 +11,22 @@ void Game::loadAssets() {
 
 void Game::chooseFirstPlayer() {
 
-	Player firstPlayer = PLAYER_NONE;
-	while (firstPlayer == PLAYER_NONE) {
+	render();
+
+	while (currentPlayer == PLAYER_NONE) {
 		
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::B))
+			currentPlayer = Player::PLAYER_BLACK;
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
+			currentPlayer = Player::PLAYER_WHITE;
 	}
+}
+
+void Game::changePlayer() {
+
+	if (currentPlayer == Player::PLAYER_BLACK)
+		currentPlayer = Player::PLAYER_WHITE;
+	else currentPlayer = Player::PLAYER_BLACK;
 }
 
 Game::Game() : window(sf::VideoMode(1400, 900), "Reversi") {
@@ -27,7 +38,8 @@ Game::Game() : window(sf::VideoMode(1400, 900), "Reversi") {
 		texturesHolder.get(Textures::Chips), texturesHolder.get(Textures::CellHover));
 	infoBoard = new InfoBoard(&window, { 75, 300 }, fontsHolder.get(Fonts::Gilroy));
 	
-
+	currentPlayer = Player::PLAYER_NONE;
+	chooseFirstPlayer();
 }
 
 void Game::run() {
@@ -61,8 +73,10 @@ void Game::processEvents() {
 		break;
 
 	case sf::Event::MouseButtonPressed:
-		if (event.key.code == sf::Mouse::Button::Left)
-			field->setChip(Player::PLAYER_WHITE);
+		if (event.key.code == sf::Mouse::Button::Left) {
+			bool wasSet = field->setChip(currentPlayer);
+			if (wasSet) changePlayer();
+		}
 	}
 }
 

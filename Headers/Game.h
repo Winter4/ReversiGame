@@ -41,5 +41,6 @@ private:
 	//void reset();
 	
 	void chooseFirstPlayer();
+	void changePlayer();
 };
 

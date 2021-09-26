@@ -20,5 +20,5 @@ public:
 	sf::FloatRect getBounds();
 	// diplay chip phantom if necessary
 	void processCursor(sf::Vector2i cursorPosition);
-	void setChip(Player player);
+	bool setChip(Player player);
 };

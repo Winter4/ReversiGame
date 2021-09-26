@@ -20,6 +20,12 @@ Field::Field(sf::RenderWindow* window, sf::Vector2f position, const sf::Texture&
 			// debug chips displaying
 			//cells[i][j]->set(Player::PLAYER_WHITE);
 		}
+
+	// start chips placing
+	cells[3][3]->setChip(Player::PLAYER_BLACK);
+	cells[4][3]->setChip(Player::PLAYER_WHITE);
+	cells[3][4]->setChip(Player::PLAYER_WHITE);
+	cells[4][4]->setChip(Player::PLAYER_BLACK);
 }
 
 void Field::draw() {
@@ -62,11 +68,14 @@ void Field::processCursor(sf::Vector2i cursorPosition) {
 	}
 }
 
-void Field::setChip(Player player) {
+bool Field::setChip(Player player) {
 	if (chipPhantom.getState())
 		if (not (cells[chipPhantom.getIndex().y][chipPhantom.getIndex().x]->getFilling())) {
 
 			cells[chipPhantom.getIndex().y][chipPhantom.getIndex().x]->setChip(player);
 			chipPhantom.setState(false);
+
+			return true;
 		}
+	return false;
 }
