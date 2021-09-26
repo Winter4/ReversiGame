@@ -22,11 +22,22 @@ void Game::chooseFirstPlayer() {
 	}
 }
 
+std::string Game::getInfoText() {
+
+	std::string tmp;
+	if (currentPlayer == Player::PLAYER_BLACK) tmp = "Black player";
+	else if (currentPlayer == Player::PLAYER_WHITE) tmp = "White player";
+	else throw new std::exception("Invalid current player: can't get info text.");
+
+	return tmp;
+}
+
 void Game::changePlayer() {
 
-	if (currentPlayer == Player::PLAYER_BLACK)
-		currentPlayer = Player::PLAYER_WHITE;
+	if (currentPlayer == Player::PLAYER_BLACK) currentPlayer = Player::PLAYER_WHITE;
 	else currentPlayer = Player::PLAYER_BLACK;
+	
+	infoBoard->setString(getInfoText() + ", make your move!");
 }
 
 Game::Game() : window(sf::VideoMode(1400, 900), "Reversi") {
@@ -38,8 +49,10 @@ Game::Game() : window(sf::VideoMode(1400, 900), "Reversi") {
 		texturesHolder.get(Textures::Chips), texturesHolder.get(Textures::CellHover));
 	infoBoard = new InfoBoard(&window, { 75, 300 }, fontsHolder.get(Fonts::Gilroy));
 	
+	// field chips placing init
 	currentPlayer = Player::PLAYER_NONE;
 	chooseFirstPlayer();
+	infoBoard->setString(getInfoText() + ", make your move!");
 }
 
 void Game::run() {

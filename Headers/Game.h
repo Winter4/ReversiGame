@@ -41,6 +41,7 @@ private:
 	//void reset();
 	
 	void chooseFirstPlayer();
+	std::string getInfoText();
 	void changePlayer();
 };
 
