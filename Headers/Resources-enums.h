@@ -10,6 +10,12 @@ namespace Textures {
 	};
 }
 
+namespace Fonts {
+	enum ID {
+		Gilroy
+	};
+}
+
 	enum Player {
 		PLAYER_NONE,
 		PLAYER_BLACK,

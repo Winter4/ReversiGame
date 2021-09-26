@@ -156,6 +156,7 @@
     <ClCompile Include="Sources\Field.cpp" />
     <ClCompile Include="Sources\FontedEntity.cpp" />
     <ClCompile Include="Sources\Game.cpp" />
+    <ClCompile Include="Sources\InfoBoard.cpp" />
     <ClCompile Include="Sources\TexturedEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -163,11 +164,13 @@
     <ClInclude Include="Headers\ChipPhantom.h" />
     <ClInclude Include="Headers\Entity.h" />
     <ClInclude Include="Headers\Field.h" />
-    <ClInclude Include="Headers\FontedEntity.h" />
+    <ClInclude Include="Headers\FontedEntity.hpp" />
     <ClInclude Include="Headers\Game.h" />
+    <ClInclude Include="Headers\InfoBoard.h" />
     <ClInclude Include="Headers\ResourceHolder.hpp" />
     <ClInclude Include="Headers\Resources-enums.h" />
     <ClInclude Include="Headers\TexturedEntity.h" />
+    <ClInclude Include="Headers\Timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

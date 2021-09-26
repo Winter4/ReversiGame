@@ -5,15 +5,20 @@
 #include "ResourceHolder.hpp"
 #include "Resources-enums.h"
 #include "Field.h"
+#include "InfoBoard.h"
 
 class Game {
 private:
 	sf::RenderWindow window;
 
 	ResourceHolder<sf::Texture, Textures::ID> texturesHolder;
+	ResourceHolder<sf::Font, Fonts::ID> fontsHolder;
 
 	sf::Sprite background;
 	Field* field;
+	InfoBoard* infoBoard;
+
+	Player currentPlayer;
 
 public:
 	Game();
@@ -21,7 +26,7 @@ public:
 	//
 	void run();
 
-public:
+private:
 	// 
 	void loadAssets();
 
@@ -34,5 +39,7 @@ public:
 
 	// 
 	//void reset();
+	
+	void chooseFirstPlayer();
 };
 
