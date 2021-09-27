@@ -76,6 +76,8 @@ bool Field::setChip(Player player) {
 			cells[chipPhantom.getIndex().y][chipPhantom.getIndex().x]->setChip(player);
 			chipPhantom.setState(false);
 
+			reverse(player, { chipPhantom.getIndex().x, chipPhantom.getIndex().y });
+
 			return true;
 		}
 	return false;
@@ -104,7 +106,7 @@ bool Field::checkLine(sf::Vector2i cell, sf::Vector2i direction, Player player) 
 
 			// checking the line until the player chip or the board end
 			for (int i = cell.y + direction.y, j = cell.x + direction.x;
-				cells[i][j]->getPlayer() != Player::PLAYER_NONE;
+				;
 				i += direction.y, j += direction.x)
 			{
 				// in board check
@@ -114,7 +116,9 @@ bool Field::checkLine(sf::Vector2i cell, sf::Vector2i direction, Player player) 
 					throw std::exception();
 				}
 
-				if (cells[i][j]->getPlayer() == player) 
+				if (cells[i][j]->getPlayer() == Player::PLAYER_NONE)
+					break;
+				else if (cells[i][j]->getPlayer() == player) 
 					return true;
 			}
 		}
@@ -144,4 +148,26 @@ void Field::findAllowedCells(Player player) {
 			// debug
 			//assert(not (cells[i][j]->getAllowance()));
 		}
+}
+
+void Field::reverse(Player player, sf::Vector2i cell) {
+
+	if (checkLine(cell, { 0, 1 }, player)) reverseRow(player, cell, { 0, 1 });
+	if (checkLine(cell, { 1, 1 }, player)) reverseRow(player, cell, { 1, 1 });
+	if (checkLine(cell, { 1, 0 }, player)) reverseRow(player, cell, { 1, 0 });
+	if (checkLine(cell, { 1, -1 }, player)) reverseRow(player, cell, { 1, -1 });
+	if (checkLine(cell, { 0, -1 }, player)) reverseRow(player, cell, { 0, -1 });
+	if (checkLine(cell, { -1, -1 }, player)) reverseRow(player, cell, { -1, -1 });
+	if (checkLine(cell, { -1, 0 }, player)) reverseRow(player, cell, { -1, 0 });
+	if (checkLine(cell, { -1, 1 }, player)) reverseRow(player, cell, { -1, 1 });
+}
+
+void Field::reverseRow(Player player, sf::Vector2i cell, sf::Vector2i direction) {
+
+	for (int i = cell.y + direction.y, j = cell.x + direction.x;
+		cells[i][j]->getPlayer() != player;
+		i += direction.y, j += direction.x)
+	{
+		cells[i][j]->setChip(player);
+	}
 }
