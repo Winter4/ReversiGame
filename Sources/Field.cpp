@@ -52,8 +52,9 @@ void Field::processCursor(sf::Vector2i cursorPosition) {
 		{
 			std::cout << "Alleged cell: " << allegedCell.x << "  " << allegedCell.y << std::endl;
 			if (cells[allegedCell.y][allegedCell.x]->hovered(sf::Vector2f(cursorPosition)) 
-				&& not (cells[allegedCell.y][allegedCell.x]->getFilling())) {
-
+				and not (cells[allegedCell.y][allegedCell.x]->getFilling())
+				and cells[allegedCell.y][allegedCell.x]->getAllowance()) 
+			{
 				chipPhantom.setState(true);
 				chipPhantom.setPosition(cells[allegedCell.y][allegedCell.x]->getPosition());
 				chipPhantom.setIndex(allegedCell);
