@@ -7,6 +7,8 @@ private:
 	bool filled;
 	Player player;
 
+	bool allowedToSet;
+
 public:
 	Cell(sf::RenderWindow* window, sf::Vector2f position, const sf::Texture& texture);
 
@@ -17,4 +19,8 @@ public:
 	bool hovered(sf::Vector2f point);
 
 	bool getFilling();
+	Player getPlayer();
+
+	void setAllowance(bool allowance);
+	bool getAllowance();
 };

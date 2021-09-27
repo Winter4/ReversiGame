@@ -3,7 +3,7 @@
 void Game::loadAssets() {
 	texturesHolder.load(Textures::Background, "assets/textures/background.png");
 	texturesHolder.load(Textures::Field, "assets/textures/field.png");
-	texturesHolder.load(Textures::Chips, "assets/textures/chips2.png");
+	texturesHolder.load(Textures::Chips, "assets/textures/chips.png");
 	texturesHolder.load(Textures::CellHover, "assets/textures/cellhover.png");
 
 	fontsHolder.load(Fonts::Gilroy, "assets/fonts/gilroy-regular.ttf");
@@ -38,9 +38,13 @@ void Game::changePlayer() {
 	else currentPlayer = Player::PLAYER_BLACK;
 	
 	infoBoard->setString(getInfoText() + ", make your move!");
+
+	field->findAllowedCells(currentPlayer);
 }
 
 Game::Game() : window(sf::VideoMode(1400, 900), "Reversi") {
+
+	gameOver = false;
 
 	loadAssets();
 	
@@ -53,6 +57,7 @@ Game::Game() : window(sf::VideoMode(1400, 900), "Reversi") {
 	currentPlayer = Player::PLAYER_NONE;
 	chooseFirstPlayer();
 	infoBoard->setString(getInfoText() + ", make your move!");
+	field->findAllowedCells(currentPlayer);
 }
 
 void Game::run() {

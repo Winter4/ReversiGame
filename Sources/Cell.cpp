@@ -5,16 +5,18 @@ Cell::Cell(sf::RenderWindow* window, sf::Vector2f position, const sf::Texture& t
 {
 	filled = false;
 	player = PLAYER_NONE;
+
+	allowedToSet = false;
 	
 	sprite.setScale({ 0.7, 0.7 });
 
-	// the texture image is {2*x; x}
-	// that's why the sprite origin width is divided 2 times 
-	sprite.setOrigin(sprite.getLocalBounds().width / 2 / 2, sprite.getLocalBounds().height / 2);
+	// the texture image is {3*x; x}
+	// that's why the sprite origin is divided 3 and 2 times
+	sprite.setOrigin(sprite.getLocalBounds().width / 3 / 2, sprite.getLocalBounds().height / 2);
 }
 
 void Cell::draw() {
-	if (filled)
+	if (allowedToSet or filled)
 		TexturedEntity::draw();
 
 	// sprite origin debug
@@ -47,6 +49,7 @@ void Cell::setChip(Player player)
 		break;
 	}
 
+	this->player = player;
 	filled = true;
 }
 
@@ -61,3 +64,15 @@ bool Cell::hovered(sf::Vector2f point) {
 }
 
 bool Cell::getFilling() { return filled; }
+
+Player Cell::getPlayer() { return player; }
+
+void Cell::setAllowance(bool allowance) { 
+
+	allowedToSet = allowance; 
+
+	if (allowedToSet) sprite.setTextureRect(sf::IntRect(170, 0, 85, 85));
+	else sprite.setTextureRect(sf::IntRect(0, 0, 0, 0));
+}
+
+bool Cell::getAllowance() { return allowedToSet; }

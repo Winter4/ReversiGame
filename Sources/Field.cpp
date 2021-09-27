@@ -79,3 +79,68 @@ bool Field::setChip(Player player) {
 		}
 	return false;
 }
+
+bool Field::checkLine(sf::Vector2i cell, sf::Vector2i direction, Player player) {
+
+	//assert(not (cell.x == 4 and cell.y == 1));
+
+	// bug catching
+	if (player == PLAYER_NONE) throw new std::exception("Cell can't has a PLAYER_NONE owner.");
+
+	// another player color
+	Player oppositePlayer = (player == Player::PLAYER_BLACK) ? PLAYER_WHITE : PLAYER_BLACK;
+
+	// throwed exception means out_of_board or 
+	try {
+		// in board check
+		if (not ((cell.y + direction.y >= 0 and cell.y + direction.y < FIELD_SIZE)
+			and (cell.x + direction.x >= 0 and cell.x + direction.x < FIELD_SIZE)))
+		{
+			throw std::exception();
+		}
+
+		if (cells[cell.y + direction.y][cell.x + direction.x]->getPlayer() == oppositePlayer) {
+
+			// checking the line until the player chip or the board end
+			for (int i = cell.y + direction.y, j = cell.x + direction.x;
+				cells[i][j]->getPlayer() != Player::PLAYER_NONE;
+				i += direction.y, j += direction.x)
+			{
+				// in board check
+				if (not ((i >= 0 and i < FIELD_SIZE)
+					and (j >= 0 and j < FIELD_SIZE)))
+				{
+					throw std::exception();
+				}
+
+				if (cells[i][j]->getPlayer() == player) 
+					return true;
+			}
+		}
+	}
+	catch (std::exception exc) {}
+
+	return false;
+}
+
+void Field::findAllowedCells(Player player) {
+
+	for (int i = 0; i < FIELD_SIZE; i++)
+		for (int j = 0; j < FIELD_SIZE; j++) {
+			
+			if (not (cells[i][j]->getFilling()))
+				cells[i][j]->setAllowance(
+					checkLine({ j, i }, { 0, 1 }, player) // south
+					or checkLine({ j, i }, { 1, 1 }, player) // south-east
+					or checkLine({ j, i }, { 1, 0 }, player) // east
+					or checkLine({ j, i }, { 1, -1 }, player) // north-east
+					or checkLine({ j, i }, { 0, -1 }, player) // north
+					or checkLine({ j, i }, { -1, -1 }, player) // north-west
+					or checkLine({ j, i }, { -1, 0 }, player) // west
+					or checkLine({ j, i }, { -1, 1 }, player) // south-west
+				);
+
+			// debug
+			//assert(not (cells[i][j]->getAllowance()));
+		}
+}

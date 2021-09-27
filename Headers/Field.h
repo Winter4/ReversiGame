@@ -3,6 +3,8 @@
 #include "ChipPhantom.h"
 #include <iostream>
 
+#include <cassert>
+
 #define FIELD_SIZE 8
 
 class Field : public TexturedEntity {
@@ -21,4 +23,7 @@ public:
 	// diplay chip phantom if necessary
 	void processCursor(sf::Vector2i cursorPosition);
 	bool setChip(Player player);
+
+	bool checkLine(sf::Vector2i cell, sf::Vector2i direction, Player player);
+	void findAllowedCells(Player player);
 };

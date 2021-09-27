@@ -20,6 +20,13 @@ private:
 
 	Player currentPlayer;
 
+	bool gameOver;
+
+private:
+	void chooseFirstPlayer();
+	std::string getInfoText();
+	void changePlayer();
+
 public:
 	Game();
 
@@ -36,12 +43,5 @@ private:
 	void update();
 	// 
 	void render();
-
-	// 
-	//void reset();
-	
-	void chooseFirstPlayer();
-	std::string getInfoText();
-	void changePlayer();
 };
 
