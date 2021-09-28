@@ -22,7 +22,7 @@ void Game::chooseFirstPlayer() {
 	}
 }
 
-std::string Game::getInfoText() {
+std::string Game::getPlayerText() {
 
 	std::string tmp;
 	if (currentPlayer == Player::PLAYER_BLACK) tmp = "Black player";
@@ -37,10 +37,12 @@ void Game::changePlayer() {
 	if (currentPlayer == Player::PLAYER_BLACK) currentPlayer = Player::PLAYER_WHITE;
 	else currentPlayer = Player::PLAYER_BLACK;
 	
-	infoBoard->setString(getInfoText() + ", make your move!");
+	infoBoard->setString(getPlayerText() + ", make your move!");
 
 	field->findAllowedCells(currentPlayer);
 }
+
+// ___________________________________________________________________
 
 Game::Game() : window(sf::VideoMode(1400, 900), "Reversi") {
 
@@ -56,9 +58,11 @@ Game::Game() : window(sf::VideoMode(1400, 900), "Reversi") {
 	// field chips placing init
 	currentPlayer = Player::PLAYER_NONE;
 	chooseFirstPlayer();
-	infoBoard->setString(getInfoText() + ", make your move!");
+	infoBoard->setString(getPlayerText() + ", make your move!");
 	field->findAllowedCells(currentPlayer);
 }
+
+// ____________________________________________________________________
 
 void Game::run() {
 

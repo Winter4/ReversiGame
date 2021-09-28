@@ -25,7 +25,7 @@ public:
 	bool setChip(Player player);
 
 	bool checkLine(sf::Vector2i cell, sf::Vector2i direction, Player player);
-	void findAllowedCells(Player player);
+	bool findAllowedCells(Player player);
 
 	void reverse(Player player, sf::Vector2i cell);
 	void reverseRow(Player player, sf::Vector2i cell, sf::Vector2i direction);

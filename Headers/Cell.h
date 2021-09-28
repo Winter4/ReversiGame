@@ -21,6 +21,7 @@ public:
 	bool getFilling();
 	Player getPlayer();
 
+	// returns result allowance
 	void setAllowance(bool allowance);
 	bool getAllowance();
 };

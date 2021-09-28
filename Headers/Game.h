@@ -21,10 +21,12 @@ private:
 	Player currentPlayer;
 
 	bool gameOver;
+	//bool wasSkipped;
 
 private:
 	void chooseFirstPlayer();
-	std::string getInfoText();
+	std::string getPlayerText();
+	void initMove();
 	void changePlayer();
 
 public:

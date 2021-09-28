@@ -128,26 +128,36 @@ bool Field::checkLine(sf::Vector2i cell, sf::Vector2i direction, Player player) 
 	return false;
 }
 
-void Field::findAllowedCells(Player player) {
+bool Field::findAllowedCells(Player player) {
+
+	bool wasFound = false;
 
 	for (int i = 0; i < FIELD_SIZE; i++)
 		for (int j = 0; j < FIELD_SIZE; j++) {
 			
-			if (not (cells[i][j]->getFilling()))
-				cells[i][j]->setAllowance(
-					checkLine({ j, i }, { 0, 1 }, player) // south
-					or checkLine({ j, i }, { 1, 1 }, player) // south-east
-					or checkLine({ j, i }, { 1, 0 }, player) // east
-					or checkLine({ j, i }, { 1, -1 }, player) // north-east
-					or checkLine({ j, i }, { 0, -1 }, player) // north
-					or checkLine({ j, i }, { -1, -1 }, player) // north-west
-					or checkLine({ j, i }, { -1, 0 }, player) // west
-					or checkLine({ j, i }, { -1, 1 }, player) // south-west
-				);
+			if (not (cells[i][j]->getFilling())) {
 
+				bool allowance =
+					checkLine({ j, i }, { 0, 1 }, player)      // south
+					or checkLine({ j, i }, { 1, 1 }, player)   // south-east
+					or checkLine({ j, i }, { 1, 0 }, player)   // east
+					or checkLine({ j, i }, { 1, -1 }, player)  // north-east
+					or checkLine({ j, i }, { 0, -1 }, player)  // north
+					or checkLine({ j, i }, { -1, -1 }, player) // north-west
+					or checkLine({ j, i }, { -1, 0 }, player)  // west
+					or checkLine({ j, i }, { -1, 1 }, player); // south-west
+					
+
+				cells[i][j]->setAllowance(allowance);
+
+				// holding true value 
+				wasFound = wasFound ? true : allowance;
+			}
 			// debug
 			//assert(not (cells[i][j]->getAllowance()));
 		}
+
+	return wasFound;
 }
 
 void Field::reverse(Player player, sf::Vector2i cell) {
