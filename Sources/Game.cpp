@@ -43,23 +43,25 @@ void Game::move() {
 	}
 	else {
 		// if no allowed cells were found, skip move
-		infoBoard->setString(getPlayerText() + ", you can't move. \nPress S to skip!");
-		render();
+		if (field->checkFreeCells()) {
+			infoBoard->setString(getPlayerText() + ", you can't move. \nPress S to skip!");
+			render();
 
-		gameOver = wasSkipped;
+			gameOver = wasSkipped;
 
-		if (not gameOver)
-			while (true) {
-				//std::cout << "LOOP  " << std::endl;
-				if (sf::Keyboard::isKeyPressed((sf::Keyboard::S))) {
+			if (not gameOver)
+				while (true) {
+					//std::cout << "LOOP  " << std::endl;
+					if (sf::Keyboard::isKeyPressed((sf::Keyboard::S))) {
 
-					wasSkipped = true;
+						wasSkipped = true;
 
-					changePlayer();
-					move();
-					break;
+						changePlayer();
+						move();
+						break;
+					}
 				}
-			}
+		}
 	}
 }
 
@@ -146,9 +148,31 @@ void Game::update() {
 
 	if (gameOver) {
 
-		infoBoard->setString("GAME OVER");
+		int blackNumber = field->calcChips(Player::PLAYER_BLACK);
+		int whiteNumber = field->calcChips(Player::PLAYER_WHITE);
+
+		if (blackNumber > whiteNumber) {
+			infoBoard->setString("BLACK WINS \n" + std::to_string(blackNumber)
+				+ " > " + std::to_string(whiteNumber));
+		}
+		else if (whiteNumber > blackNumber) {
+			infoBoard->setString("WHITE WINS \n" + std::to_string(whiteNumber)
+			+ " > " + std::to_string(blackNumber));
+		}
+		else {
+			infoBoard->setString("DRAW! NOONE WINS \n" + std::to_string(blackNumber)
+				+ " = " + std::to_string(whiteNumber));
+		}
+
 		render();
-		while (true);
+		while (true) {
+
+			sf::Event event;
+			window.pollEvent(event);
+
+			if (event.type == sf::Event::Closed)
+				window.close();
+		}
 	}
 }
 

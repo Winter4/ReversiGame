@@ -191,3 +191,15 @@ bool Field::checkFreeCells() {
 
 	return false;
 }
+
+int Field::calcChips(Player player) {
+
+	int number = 0;
+
+	for (int i = 0; i < FIELD_SIZE; i++)
+		for (int j = 0; j < FIELD_SIZE; j++)
+			if (cells[i][j]->getPlayer() == player)
+				number++;
+
+	return number;
+}

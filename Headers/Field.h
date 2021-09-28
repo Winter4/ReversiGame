@@ -31,4 +31,5 @@ public:
 	void reverseRow(Player player, sf::Vector2i cell, sf::Vector2i direction);
 
 	bool checkFreeCells();
+	int calcChips(Player player);
 };
