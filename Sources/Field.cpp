@@ -181,3 +181,13 @@ void Field::reverseRow(Player player, sf::Vector2i cell, sf::Vector2i direction)
 		cells[i][j]->setChip(player);
 	}
 }
+
+bool Field::checkFreeCells() {
+
+	for (int i = 0; i < FIELD_SIZE; i++)
+		for (int j = 0; j < FIELD_SIZE; j++)
+			if (not (cells[i][j]->getFilling()))
+				return true;
+
+	return false;
+}

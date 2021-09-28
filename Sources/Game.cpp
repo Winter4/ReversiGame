@@ -81,7 +81,7 @@ Game::Game() : window(sf::VideoMode(1400, 900), "Reversi") {
 	background.setTexture(texturesHolder.get(Textures::Background));
 	field = new Field(&window, { 520, 80 }, texturesHolder.get(Textures::Field), 
 		texturesHolder.get(Textures::Chips), texturesHolder.get(Textures::CellHover));
-	infoBoard = new InfoBoard(&window, { 75, 300 }, fontsHolder.get(Fonts::Gilroy));
+	infoBoard = new InfoBoard(&window, { 60, 300 }, fontsHolder.get(Fonts::Gilroy));
 	
 	// field chips placing init
 	currentPlayer = Player::PLAYER_NONE;
@@ -132,12 +132,17 @@ void Game::processEvents() {
 
 void Game::update() {
 
+	// _____________ DEBUG _____________
 	system("cls");
 	// debug displaying cursor position
 	std::cout << "Mouse: " << sf::Mouse::getPosition(window).x << "  "
 		<< sf::Mouse::getPosition(window).y << std::endl;
 
 	std::cout << currentPlayer << std::endl;
+	// _____________ DEBUG _____________
+
+
+	gameOver = not (field->checkFreeCells());
 
 	if (gameOver) {
 
