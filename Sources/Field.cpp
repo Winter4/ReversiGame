@@ -50,7 +50,7 @@ void Field::processCursor(sf::Vector2i cursorPosition) {
 		if ((allegedCell.x >= 0 && allegedCell.x < FIELD_SIZE)
 			&& (allegedCell.y >= 0 && allegedCell.y < FIELD_SIZE))
 		{
-			std::cout << "Alleged cell: " << allegedCell.x << "  " << allegedCell.y << std::endl;
+			//std::cout << "Alleged cell: " << allegedCell.x << "  " << allegedCell.y << std::endl;
 			if (cells[allegedCell.y][allegedCell.x]->hovered(sf::Vector2f(cursorPosition)) 
 				and not (cells[allegedCell.y][allegedCell.x]->getFilling())
 				and cells[allegedCell.y][allegedCell.x]->getAllowance()) 

@@ -11,6 +11,8 @@ void Game::loadAssets() {
 
 void Game::chooseFirstPlayer() {
 
+	infoBoard->setString("Player 1: press B or W button\nto choose your color.");
+
 	render();
 
 	while (currentPlayer == PLAYER_NONE) {
@@ -32,14 +34,39 @@ std::string Game::getPlayerText() {
 	return tmp;
 }
 
+void Game::move() {
+
+	if (field->findAllowedCells(currentPlayer)) {
+
+		infoBoard->setString(getPlayerText() + ", make your move!");
+		wasSkipped = false;
+	}
+	else {
+		// if no allowed cells were found, skip move
+		infoBoard->setString(getPlayerText() + ", you can't move. \nPress S to skip!");
+		render();
+
+		gameOver = wasSkipped;
+
+		if (not gameOver)
+			while (true) {
+				//std::cout << "LOOP  " << std::endl;
+				if (sf::Keyboard::isKeyPressed((sf::Keyboard::S))) {
+
+					wasSkipped = true;
+
+					changePlayer();
+					move();
+					break;
+				}
+			}
+	}
+}
+
 void Game::changePlayer() {
 
-	if (currentPlayer == Player::PLAYER_BLACK) currentPlayer = Player::PLAYER_WHITE;
-	else currentPlayer = Player::PLAYER_BLACK;
-	
-	infoBoard->setString(getPlayerText() + ", make your move!");
-
-	field->findAllowedCells(currentPlayer);
+	currentPlayer = currentPlayer == Player::PLAYER_BLACK ? 
+		Player::PLAYER_WHITE : Player::PLAYER_BLACK;
 }
 
 // ___________________________________________________________________
@@ -47,6 +74,7 @@ void Game::changePlayer() {
 Game::Game() : window(sf::VideoMode(1400, 900), "Reversi") {
 
 	gameOver = false;
+	wasSkipped = false;
 
 	loadAssets();
 	
@@ -58,8 +86,8 @@ Game::Game() : window(sf::VideoMode(1400, 900), "Reversi") {
 	// field chips placing init
 	currentPlayer = Player::PLAYER_NONE;
 	chooseFirstPlayer();
-	infoBoard->setString(getPlayerText() + ", make your move!");
-	field->findAllowedCells(currentPlayer);
+
+	move();
 }
 
 // ____________________________________________________________________
@@ -85,26 +113,38 @@ void Game::processEvents() {
 		break;
 
 	case sf::Event::MouseMoved:
-		system("cls");
+		
 		// displaying chip phantom if necessary
 		field->processCursor(sf::Mouse::getPosition(window));
-			
-		// debug displaying cursor position
-		std::cout << "Mouse: " << sf::Mouse::getPosition(window).x << "  " 
-			<< sf::Mouse::getPosition(window).y << std::endl;
 		break;
 
 	case sf::Event::MouseButtonPressed:
 		if (event.key.code == sf::Mouse::Button::Left) {
-			bool wasSet = field->setChip(currentPlayer);
-			if (wasSet) changePlayer();
+
+			if (field->setChip(currentPlayer)) {
+
+				changePlayer();
+				move();
+			}
 		}
 	}
 }
 
 void Game::update() {
 
+	system("cls");
+	// debug displaying cursor position
+	std::cout << "Mouse: " << sf::Mouse::getPosition(window).x << "  "
+		<< sf::Mouse::getPosition(window).y << std::endl;
 
+	std::cout << currentPlayer << std::endl;
+
+	if (gameOver) {
+
+		infoBoard->setString("GAME OVER");
+		render();
+		while (true);
+	}
 }
 
 void Game::render() {
