@@ -20,6 +20,8 @@ private:
 	InfoBoard* infoBoard;
 	Timer* timer;
 
+	sf::Sprite chipShower;
+
 	Player currentPlayer;
 
 	bool gameOver;

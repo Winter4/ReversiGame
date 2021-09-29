@@ -63,6 +63,11 @@ void Game::move() {
 				}
 		}
 	}
+
+	if (currentPlayer == Player::PLAYER_BLACK) chipShower.setTextureRect(sf::IntRect(0, 0, 85, 85));
+	else chipShower.setTextureRect(sf::IntRect(85, 0, 85, 85));
+
+	timer->refresh();
 }
 
 void Game::changePlayer() {
@@ -85,6 +90,11 @@ Game::Game() : window(sf::VideoMode(1400, 900), "Reversi") {
 		texturesHolder.get(Textures::Chips), texturesHolder.get(Textures::CellHover));
 	infoBoard = new InfoBoard(&window, { 60, 300 }, fontsHolder.get(Fonts::Gilroy));
 	timer = new Timer(&window, { 230, 450 }, fontsHolder.get(Fonts::Gilroy));
+
+	chipShower.setTexture(texturesHolder.get(Textures::Chips));
+	chipShower.setTextureRect(sf::IntRect(0, 0, 0, 0));
+	chipShower.setPosition({ 230, 160 });
+	
 	
 	// field chips placing init
 	currentPlayer = Player::PLAYER_NONE;
@@ -178,6 +188,8 @@ void Game::update() {
 				+ " = " + std::to_string(whiteNumber));
 		}
 
+		chipShower.setTextureRect(sf::IntRect(0, 0, 0, 0));
+
 		render();
 		while (true) {
 
@@ -198,6 +210,7 @@ void Game::render() {
 	field->draw();
 	infoBoard->draw();
 	timer->draw();
+	window.draw(chipShower);
 
 	window.display();
 }
