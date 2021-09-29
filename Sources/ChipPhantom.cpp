@@ -5,7 +5,8 @@ ChipPhantom::ChipPhantom(sf::RenderWindow* window, sf::Vector2f position, const 
 {
 	state = false;
 	sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
-	sprite.setColor(sf::Color::Red);
+
+	sprite.setScale({ 0.7, 0.7 });
 
 	index = { -1, -1 };
 }
