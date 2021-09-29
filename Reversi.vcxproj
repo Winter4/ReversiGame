@@ -158,6 +158,7 @@
     <ClCompile Include="Sources\Game.cpp" />
     <ClCompile Include="Sources\InfoBoard.cpp" />
     <ClCompile Include="Sources\TexturedEntity.cpp" />
+    <ClCompile Include="Sources\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Cell.h" />

@@ -6,6 +6,7 @@
 #include "Resources-enums.h"
 #include "Field.h"
 #include "InfoBoard.h"
+#include "Timer.h"
 
 class Game {
 private:
@@ -17,6 +18,7 @@ private:
 	sf::Sprite background;
 	Field* field;
 	InfoBoard* infoBoard;
+	Timer* timer;
 
 	Player currentPlayer;
 

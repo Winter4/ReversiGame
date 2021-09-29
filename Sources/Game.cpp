@@ -84,6 +84,7 @@ Game::Game() : window(sf::VideoMode(1400, 900), "Reversi") {
 	field = new Field(&window, { 520, 80 }, texturesHolder.get(Textures::Field), 
 		texturesHolder.get(Textures::Chips), texturesHolder.get(Textures::CellHover));
 	infoBoard = new InfoBoard(&window, { 60, 300 }, fontsHolder.get(Fonts::Gilroy));
+	timer = new Timer(&window, { 230, 450 }, fontsHolder.get(Fonts::Gilroy));
 	
 	// field chips placing init
 	currentPlayer = Player::PLAYER_NONE;
@@ -143,9 +144,22 @@ void Game::update() {
 	std::cout << currentPlayer << std::endl;
 	// _____________ DEBUG _____________
 
+	// 0 seconds = game over
+	if (timer->getTime() <= 0) {
 
-	gameOver = not (field->checkFreeCells());
+		timer->refresh();
+		changePlayer();
+		move();
+	}
 
+	if (timer->getElapsedTime() >= sf::seconds(1))
+		timer->substractSecond();
+
+
+	gameOver = gameOver ? true : not (field->checkFreeCells());
+
+
+	// GAME OVER
 	if (gameOver) {
 
 		int blackNumber = field->calcChips(Player::PLAYER_BLACK);
@@ -183,6 +197,7 @@ void Game::render() {
 	window.draw(background);
 	field->draw();
 	infoBoard->draw();
+	timer->draw();
 
 	window.display();
 }
